@@ -1,5 +1,6 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:marketwick_assignment/data/store/history/portfolio_history_store.dart';
 import 'package:marketwick_assignment/di/serivce_locators.dart';
 
@@ -11,42 +12,52 @@ class Positions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildLineText(context, 'Profit : ', _portfolioHistoryStore.historyPosition!.profit),
-        _buildLineText(context, 'Credit : ', _portfolioHistoryStore.historyPosition!.credit),
-        _buildLineText(context, 'Withdrawal : ', _portfolioHistoryStore.historyPosition!.withdraw),
-        _buildLineText(context, 'Swap : ', _portfolioHistoryStore.historyPosition!.swap),
-        _buildLineText(context, 'Commission : ', _portfolioHistoryStore.historyPosition!.commission),
-        _buildLineText(context, 'Balance : ', _portfolioHistoryStore.historyPosition!.balance),
+    return Observer(builder: (context) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildLineText(context, 'Profit : ',
+              _portfolioHistoryStore.historyPosition!.profit),
+          _buildLineText(context, 'Credit : ',
+              _portfolioHistoryStore.historyPosition!.credit),
+          _buildLineText(context, 'Withdrawal : ',
+              _portfolioHistoryStore.historyPosition!.withdraw),
+          _buildLineText(
+              context, 'Swap : ', _portfolioHistoryStore.historyPosition!.swap),
+          _buildLineText(context, 'Commission : ',
+              _portfolioHistoryStore.historyPosition!.commission),
+          _buildLineText(context, 'Balance : ',
+              _portfolioHistoryStore.historyPosition!.balance),
+          if (_portfolioHistoryStore.historyPosition?.transaction != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.55 ,
 
-        if (_portfolioHistoryStore.historyPosition?.transaction != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: SizedBox(
-              height: 200, // Set height for ListView
-              child: ListView.builder(
-                itemCount: _portfolioHistoryStore.historyPosition!.transaction.length,
-                itemBuilder: (context, index) {
-                  final transaction = _portfolioHistoryStore.historyPosition!.transaction[index];
-                  return _buildTransactionWidget(
-                    context,
-                    transaction.symbol,
-                    transaction.action,
-                    transaction.lotSize,
-                    transaction.timestamp,
-                    transaction.buyPrice,
-                    transaction.sellPrice,
-                    transaction.profit,
-                  );
-                },
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: _portfolioHistoryStore
+                      .historyPosition!.transaction.length,
+                  itemBuilder: (context, index) {
+                    final transaction = _portfolioHistoryStore
+                        .historyPosition!.transaction[index];
+                    return _buildTransactionWidget(
+                      context,
+                      transaction.symbol,
+                      transaction.action,
+                      transaction.lotSize,
+                      transaction.timestamp,
+                      transaction.buyPrice,
+                      transaction.sellPrice,
+                      transaction.profit,
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-      ],
-    );
-
+        ],
+      );
+    });
   }
 
   Widget _buildLineText(BuildContext context, String label, double value) {
@@ -58,7 +69,7 @@ class Positions extends StatelessWidget {
             padding: const EdgeInsets.only(right: 16.0),
             child: Text(label,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w900,
                       color: Theme.of(context).colorScheme.tertiaryFixed,
                     )),
           ),
@@ -122,7 +133,7 @@ class Positions extends StatelessWidget {
                       text: '$symbol, ',
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             fontWeight: FontWeight.w900,
-                            color:const Color(0xFF4a4b50),
+                            color: const Color(0xFF4a4b50),
                             // color: Theme.of(context).colorScheme.inverseSurface,
                           ),
                     ),
@@ -143,7 +154,7 @@ class Positions extends StatelessWidget {
                   ],
                 ),
               ),
-              Text('$timestamp',
+              Text('${DateTime.parse(timestamp.toString())}',
                   style: Theme.of(context).textTheme.labelMedium?.copyWith(
                         fontWeight: FontWeight.w400,
                         color: Theme.of(context).colorScheme.primary,

@@ -86,7 +86,7 @@ class _CustomTabbarScreenState extends State<CustomTabbarScreen>
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 0.0,vertical: 8.0),
-            height: MediaQuery.of(context).size.height * 0.7 ,
+            height: MediaQuery.of(context).size.height * 0.7412 ,
             child: TabBarView(
 
               controller: _tabController,

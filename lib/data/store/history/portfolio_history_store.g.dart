@@ -59,6 +59,22 @@ mixin _$PortfolioHistoryStore on _PortfolioHistoryStore, Store {
     });
   }
 
+  late final _$historyPositionAtom =
+      Atom(name: '_PortfolioHistoryStore.historyPosition', context: context);
+
+  @override
+  HistoryPosition? get historyPosition {
+    _$historyPositionAtom.reportRead();
+    return super.historyPosition;
+  }
+
+  @override
+  set historyPosition(HistoryPosition? value) {
+    _$historyPositionAtom.reportWrite(value, super.historyPosition, () {
+      super.historyPosition = value;
+    });
+  }
+
   late final _$_PortfolioHistoryStoreActionController =
       ActionController(name: '_PortfolioHistoryStore', context: context);
 
@@ -96,11 +112,23 @@ mixin _$PortfolioHistoryStore on _PortfolioHistoryStore, Store {
   }
 
   @override
+  void updateHistoryPosition(HistoryPosition value) {
+    final _$actionInfo = _$_PortfolioHistoryStoreActionController.startAction(
+        name: '_PortfolioHistoryStore.updateHistoryPosition');
+    try {
+      return super.updateHistoryPosition(value);
+    } finally {
+      _$_PortfolioHistoryStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 selectedBottomNavigation: ${selectedBottomNavigation},
 selectedDate: ${selectedDate},
-selectedCurrency: ${selectedCurrency}
+selectedCurrency: ${selectedCurrency},
+historyPosition: ${historyPosition}
     ''';
   }
 }

@@ -46,17 +46,25 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
                 decoration: BoxDecoration(
                   color: Colors.blue,
                 ),
-                child: Text('Drawer Header'),
+                child: Text('Trading app'),
               ),
               ListTile(
-                title: const Text('Item 1'),
+                title: Text("Text 11",
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: Theme.of(context).colorScheme.tertiaryFixed,
+                    )),
                 onTap: () {
                   // Update the state of the app.
                   // ...
                 },
               ),
               ListTile(
-                title: const Text('Item 2'),
+                title: Text("Text 12",
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: Theme.of(context).colorScheme.tertiaryFixed,
+                    )),
                 onTap: () {
                   // Update the state of the app.
                   // ...
@@ -68,8 +76,20 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
         appBar: AppBar(
           title:  Text(_getTitleForIndex(_portfolioHistoryStore.selectedBottomNavigation)),
           actions: [
-            _buildChangeCurrency(),
-            _buildSelectDate(),
+           Padding(
+             padding: const EdgeInsets.symmetric(horizontal: 16.0),
+             child: Row(
+               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+               children: [
+                 _buildSwap(),
+                 const SizedBox(width: 16.0,),
+                 _buildChangeCurrency(),
+                 const SizedBox(width: 16.0,),
+
+                 _buildSelectDate(),
+               ],
+             ),
+           )
           ],
         ),
         body: pageList[_portfolioHistoryStore.selectedBottomNavigation],
@@ -146,19 +166,16 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
                 data: Theme.of(context).copyWith(
                   datePickerTheme: DatePickerThemeData(
                     backgroundColor: Theme.of(context).colorScheme.onPrimary,
-                    // Change background color here
+
                     dayStyle: const TextStyle(color: Colors.black),
-                    // Day text color
+
                     headerHelpStyle: const TextStyle(color: Colors.blue),
                   ),
                   dialogBackgroundColor: Colors.red,
-                  // Background color of the dialog
+
                   primaryColor: Colors.green,
-                  // Header color
                   hintColor: Colors.blue,
-                  // Accent color
                   colorScheme: const ColorScheme.light(primary: Colors.blue),
-                  // Color scheme
                   buttonTheme:
                       const ButtonThemeData(textTheme: ButtonTextTheme.primary),
                 ),
@@ -214,6 +231,14 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
       default:
         return "";
     }}
+
+  Widget _buildSwap(){
+    return Icon(
+      Icons.swap_vert_outlined,
+      size: 32.0,
+      color: Theme.of(context).colorScheme.onPrimary,
+    );
+  }
   Widget _buildChangeCurrency() {
     return Observer(builder: (context) {
       return GestureDetector(
@@ -223,7 +248,7 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
             context: context,
             theme: CurrencyPickerThemeData(
               flagSize: 25,
-              titleTextStyle: TextStyle(fontSize: 17),
+              titleTextStyle: TextStyle(fontSize: 17,color: Theme.of(context).hintColor),
               subtitleTextStyle:
                   TextStyle(fontSize: 15, color: Theme.of(context).hintColor),
               bottomSheetHeight: MediaQuery.of(context).size.height / 2,
@@ -231,6 +256,7 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
                 labelText: 'Search',
                 hintText: 'Start typing to search',
                 prefixIcon: const Icon(Icons.search),
+                iconColor:Theme.of(context).hintColor,
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: const Color(0xFF8C98A8).withOpacity(0.2),
