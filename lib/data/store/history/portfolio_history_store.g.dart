@@ -47,13 +47,13 @@ mixin _$PortfolioHistoryStore on _PortfolioHistoryStore, Store {
       Atom(name: '_PortfolioHistoryStore.selectedDate', context: context);
 
   @override
-  String get selectedDate {
+  DateTime get selectedDate {
     _$selectedDateAtom.reportRead();
     return super.selectedDate;
   }
 
   @override
-  set selectedDate(String value) {
+  set selectedDate(DateTime value) {
     _$selectedDateAtom.reportWrite(value, super.selectedDate, () {
       super.selectedDate = value;
     });
@@ -85,7 +85,7 @@ mixin _$PortfolioHistoryStore on _PortfolioHistoryStore, Store {
   }
 
   @override
-  void updateSelectedDate(String value) {
+  void updateSelectedDate(DateTime value) {
     final _$actionInfo = _$_PortfolioHistoryStoreActionController.startAction(
         name: '_PortfolioHistoryStore.updateSelectedDate');
     try {

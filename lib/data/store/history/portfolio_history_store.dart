@@ -14,7 +14,7 @@ abstract class _PortfolioHistoryStore with Store {
   @observable
   String selectedCurrency='';
   @observable
-  String selectedDate = '';
+  DateTime selectedDate = DateTime.now();
 
 
   @action
@@ -28,7 +28,7 @@ abstract class _PortfolioHistoryStore with Store {
   }
 
   @action
-  void updateSelectedDate(String  value){
+  void updateSelectedDate(DateTime  value){
     selectedDate = value;
   }
 
