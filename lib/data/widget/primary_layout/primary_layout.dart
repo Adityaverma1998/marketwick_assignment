@@ -34,16 +34,44 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return Scaffold(
-        // drawer: ,
+        drawer: Drawer(
+          // Add a ListView to the drawer. This ensures the user can scroll
+          // through the options in the drawer if there isn't enough vertical
+          // space to fit everything.
+          child: ListView(
+            // Important: Remove any padding from the ListView.
+            padding: EdgeInsets.zero,
+            children: [
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                ),
+                child: Text('Drawer Header'),
+              ),
+              ListTile(
+                title: const Text('Item 1'),
+                onTap: () {
+                  // Update the state of the app.
+                  // ...
+                },
+              ),
+              ListTile(
+                title: const Text('Item 2'),
+                onTap: () {
+                  // Update the state of the app.
+                  // ...
+                },
+              ),
+            ],
+          ),
+        ),
         appBar: AppBar(
           title: const Text("Device Insight"),
           actions: [
             _buildChangeCurrency(),
             _buildSelectDate(),
-
           ],
         ),
-
         body: pageList[_portfolioHistoryStore.selectedBottomNavigation],
         bottomNavigationBar: NavigationBarTheme(
           data: NavigationBarThemeData(
@@ -167,61 +195,56 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
   }
 
   Widget _buildChangeCurrency() {
-    return Observer(
-      builder: (context) {
-        return GestureDetector(
-            onTap: () {
-              // Open the Currency Picker when the button is pressed
-              showCurrencyPicker(
-                context: context,
-                theme: CurrencyPickerThemeData(
-                  flagSize: 25,
-                  titleTextStyle: TextStyle(fontSize: 17),
-                  subtitleTextStyle:
-                      TextStyle(fontSize: 15, color: Theme.of(context).hintColor),
-                  bottomSheetHeight: MediaQuery.of(context).size.height / 2,
-                  inputDecoration: InputDecoration(
-                    labelText: 'Search',
-                    hintText: 'Start typing to search',
-                    prefixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: const Color(0xFF8C98A8).withOpacity(0.2),
-                      ),
-                    ),
+    return Observer(builder: (context) {
+      return GestureDetector(
+        onTap: () {
+          // Open the Currency Picker when the button is pressed
+          showCurrencyPicker(
+            context: context,
+            theme: CurrencyPickerThemeData(
+              flagSize: 25,
+              titleTextStyle: TextStyle(fontSize: 17),
+              subtitleTextStyle:
+                  TextStyle(fontSize: 15, color: Theme.of(context).hintColor),
+              bottomSheetHeight: MediaQuery.of(context).size.height / 2,
+              inputDecoration: InputDecoration(
+                labelText: 'Search',
+                hintText: 'Start typing to search',
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: const Color(0xFF8C98A8).withOpacity(0.2),
                   ),
                 ),
-                onSelect: (Currency currency) {
-                  // Handle the selected currency
-                  CurrencyEntity  selectedCurrency = CurrencyEntity(
-                    code: currency.code,
-                    name: currency.name,
-                    symbol: currency.symbol,
-                    flag: currency.flag,
-                    number: currency.number,
-                    decimalDigits: currency.decimalDigits,
-                    namePlural: currency.namePlural,
-                    symbolOnLeft: currency.symbolOnLeft,
-                    decimalSeparator: currency.decimalSeparator,
-                    thousandsSeparator: currency.thousandsSeparator,
-                    spaceBetweenAmountAndSymbol: currency.spaceBetweenAmountAndSymbol,
-                  );
-
-
-                  _portfolioHistoryStore.updateSelectedCurrency(selectedCurrency);
-
-                },
+              ),
+            ),
+            onSelect: (Currency currency) {
+              // Handle the selected currency
+              CurrencyEntity selectedCurrency = CurrencyEntity(
+                code: currency.code,
+                name: currency.name,
+                symbol: currency.symbol,
+                flag: currency.flag,
+                number: currency.number,
+                decimalDigits: currency.decimalDigits,
+                namePlural: currency.namePlural,
+                symbolOnLeft: currency.symbolOnLeft,
+                decimalSeparator: currency.decimalSeparator,
+                thousandsSeparator: currency.thousandsSeparator,
+                spaceBetweenAmountAndSymbol:
+                    currency.spaceBetweenAmountAndSymbol,
               );
+
+              _portfolioHistoryStore.updateSelectedCurrency(selectedCurrency);
             },
-            child: Text(_portfolioHistoryStore.selectedCurrency.symbol,
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+          );
+        },
+        child: Text(_portfolioHistoryStore.selectedCurrency.symbol,
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w700,
                   color: Theme.of(context).colorScheme.primary,
                 )),
-
-
-        );
-      }
-    );
+      );
+    });
   }
 }

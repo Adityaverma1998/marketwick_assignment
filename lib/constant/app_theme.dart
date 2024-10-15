@@ -28,9 +28,9 @@ class AppThemeData {
       // ),
 
       primaryColor: colorScheme.primary,
-      appBarTheme: const AppBarTheme(
+      appBarTheme:  AppBarTheme(
 
-        backgroundColor: Color(0xFFF5F7F8),
+        backgroundColor: colorScheme.primary,
         elevation: 0,
         iconTheme: IconThemeData(color: Color(0xFFFAFBFB)),
       ),
@@ -55,6 +55,9 @@ class AppThemeData {
   }
 
   static const ColorScheme lightColorScheme = ColorScheme(
+    onTertiary: Color(0xFFa1a1a4),
+    tertiary: Color(0xFF9a9da1),
+    tertiaryFixed: Color(0xFF6d6a71),
     primary: Color(0xFF0D92F4),
     primaryContainer: Color.fromRGBO(15, 25, 34, 1),
     // secondary: Color.fromRGBO(19, 196, 159, 1),
@@ -123,8 +126,8 @@ class AppThemeData {
       letterSpacing: 0.1,
     ),
     bodyLarge: GoogleFonts.lato(
-      fontWeight: _regular,
-      fontSize: 14.0,
+      fontWeight: _bold,
+      fontSize: 16.0,
       letterSpacing: 0.25,
     ),
     titleSmall: GoogleFonts.lato(

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:marketwick_assignment/domain/entity/currency/currency.dart';
+import 'package:marketwick_assignment/domain/entity/history_position.dart';
 import 'package:mobx/mobx.dart';
 
 part 'portfolio_history_store.g.dart';
@@ -30,7 +31,8 @@ abstract class _PortfolioHistoryStore with Store {
       thousandsSeparator: '',
       spaceBetweenAmountAndSymbol: false);
 
-
+  @observable
+  HistoryPosition? historyPosition;
   @action
   void updateSelectedBottomNavigation(int index) {
     selectedBottomNavigation = index;
@@ -45,5 +47,10 @@ abstract class _PortfolioHistoryStore with Store {
   @action
   void updateSelectedDate(DateTime value) {
     selectedDate = value;
+  }
+
+  @action
+  void updateHistoryPosition(HistoryPosition value) {
+    historyPosition = value;
   }
 }
