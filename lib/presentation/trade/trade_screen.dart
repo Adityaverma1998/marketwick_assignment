@@ -11,8 +11,13 @@ class _TradeScreenState extends State<TradeScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue,
-      child: const Text('Trade Screen'),
-    );
+        color: Colors.white24,
+        child: Center(child:  Text('Trade Screen',
+            style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+              fontWeight: FontWeight.w700,
+              color: Theme.of(context).colorScheme.primary,
+            )),
+        ));
   }
+
 }

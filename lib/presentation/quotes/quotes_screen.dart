@@ -11,9 +11,13 @@ class _QuotesScreenState extends State<QuotesScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.amber,
-      child: const Text('Quotes Screen'),
-    );
-
+        color: Colors.white24,
+        child: Center(child:  Text('Quotes Screen',
+            style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+              fontWeight: FontWeight.w700,
+              color: Theme.of(context).colorScheme.primary,
+            )),
+        ));
   }
+
 }

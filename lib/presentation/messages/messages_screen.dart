@@ -13,8 +13,13 @@ class _MessagesScreenState extends State<MessagesScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.amber,
-      child: const Text('Messages Screen'),
-    );
+        color: Colors.white24,
+        child: Center(child:  Text('Message Screen',
+            style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+              fontWeight: FontWeight.w700,
+              color: Theme.of(context).colorScheme.primary,
+            )),
+        ));
   }
+
 }

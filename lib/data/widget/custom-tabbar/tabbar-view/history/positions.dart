@@ -80,7 +80,7 @@ class Positions extends StatelessWidget {
               lineLength: double.infinity,
               lineThickness: 3.0,
               dashLength: 4.0,
-              dashColor: Theme.of(context).colorScheme.primary,
+              dashColor: Theme.of(context).colorScheme.tertiaryFixedDim,
               // dashGradient: [Colors.red, Colors.blue],
               dashRadius: 0.0,
               dashGapLength: 4.0,
@@ -157,7 +157,7 @@ class Positions extends StatelessWidget {
               Text('${DateTime.parse(timestamp.toString())}',
                   style: Theme.of(context).textTheme.labelMedium?.copyWith(
                         fontWeight: FontWeight.w400,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).colorScheme.tertiaryFixedDim,
                       ))
             ],
           ),

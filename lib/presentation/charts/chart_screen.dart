@@ -12,7 +12,11 @@ class _ChartScreenState extends State<ChartScreen> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white24,
-      child: const Text('Messages Screen'),
-    );
+      child: Center(child:  Text('Chart Screen',
+        style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+      fontWeight: FontWeight.w700,
+      color: Theme.of(context).colorScheme.primary,
+    )),
+    ));
   }
 }

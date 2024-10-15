@@ -81,10 +81,13 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
              child: Row(
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
-                 _buildSwap(),
-                 const SizedBox(width: 16.0,),
+
                  _buildChangeCurrency(),
-                 const SizedBox(width: 16.0,),
+                 const SizedBox(width: 20.0,),
+
+                 _buildSwap(),
+
+                 const SizedBox(width: 20.0,),
 
                  _buildSelectDate(),
                ],
@@ -249,11 +252,36 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
             theme: CurrencyPickerThemeData(
               flagSize: 25,
               titleTextStyle: TextStyle(fontSize: 17,color: Theme.of(context).hintColor),
+
+
               subtitleTextStyle:
                   TextStyle(fontSize: 15, color: Theme.of(context).hintColor),
               bottomSheetHeight: MediaQuery.of(context).size.height / 2,
               inputDecoration: InputDecoration(
-                labelText: 'Search',
+                suffixStyle:TextStyle(
+                  color:Colors.blue,
+                ),
+                 // fillColor: Colors.red,
+                  focusColor: Colors.red,
+                    filled: true ,
+                    fillColor: const Color(0xFF929293),
+                    hintStyle:TextStyle(
+                      color:Theme.of(context).hintColor ,
+
+                    ) ,
+
+                labelStyle:TextStyle(
+                  color:Theme.of(context).hintColor ,
+
+                ) ,
+                counterStyle:TextStyle(
+                  color:Theme.of(context).hintColor ,
+
+                ),
+                counter: Text('hello'),
+
+                prefixIconColor:Theme.of(context).hintColor ,
+                labelText: '',
                 hintText: 'Start typing to search',
                 prefixIcon: const Icon(Icons.search),
                 iconColor:Theme.of(context).hintColor,
@@ -262,7 +290,10 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
                     color: const Color(0xFF8C98A8).withOpacity(0.2),
                   ),
                 ),
+
               ),
+
+
             ),
             onSelect: (Currency currency) {
               // Handle the selected currency

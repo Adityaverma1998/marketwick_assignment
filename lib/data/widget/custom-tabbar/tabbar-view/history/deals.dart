@@ -5,6 +5,13 @@ class Deals extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+        color: Colors.white24,
+        child: Center(child:  Text('Deals Screen',
+            style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+              fontWeight: FontWeight.w700,
+              color: Theme.of(context).colorScheme.primary,
+            )),
+        ));
   }
 }

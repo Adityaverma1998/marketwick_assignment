@@ -58,6 +58,7 @@ class AppThemeData {
     onTertiary: Color(0xFFa1a1a4),
     tertiary: Color(0xFF9a9da1),
     tertiaryFixed: Color(0xFF6d6a71),
+    tertiaryFixedDim: Color(0xFFE8EDEE),
     primary: Color(0xFF0D92F4),
     primaryContainer: Color.fromRGBO(15, 25, 34, 1),
     // secondary: Color.fromRGBO(19, 196, 159, 1),
