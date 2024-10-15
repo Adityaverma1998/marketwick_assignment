@@ -67,7 +67,7 @@ class AppThemeData {
     inversePrimary: Color.fromRGBO(30, 46, 59, 1),
     error: _lightFillColor,
     onError: _lightFillColor,
-    onPrimary: Color(0xFFEEEEEE),
+    onPrimary: Color(0xFFFFFFFF),
     onSecondary: Color.fromRGBO(9, 53, 44, 1),
     onSurface: Color(0xFFF5F7F8),
     brightness: Brightness.light,

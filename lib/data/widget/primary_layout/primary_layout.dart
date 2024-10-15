@@ -66,7 +66,7 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
           ),
         ),
         appBar: AppBar(
-          title: const Text("Device Insight"),
+          title:  Text(_getTitleForIndex(_portfolioHistoryStore.selectedBottomNavigation)),
           actions: [
             _buildChangeCurrency(),
             _buildSelectDate(),
@@ -180,12 +180,17 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
               size: 40.0,
               color: Theme.of(context).colorScheme.onPrimary,
             ),
-            Text(
-              DateFormat('d').format(_portfolioHistoryStore.selectedDate),
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top:8.0),
+                child: Text(
+                  DateFormat('d').format(_portfolioHistoryStore.selectedDate),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
               ),
             ),
           ],
@@ -194,6 +199,21 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
     });
   }
 
+  String _getTitleForIndex(int index) {
+    switch (index) {
+      case 0:
+        return "Quotes";
+      case 1:
+        return "Charts";
+      case 2:
+        return "Trade";
+      case 3:
+        return "History";
+      case 4:
+        return "Message";
+      default:
+        return "";
+    }}
   Widget _buildChangeCurrency() {
     return Observer(builder: (context) {
       return GestureDetector(
