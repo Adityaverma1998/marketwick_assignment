@@ -175,10 +175,10 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
         icon: Stack(
           alignment: Alignment.center,
           children: [
-            const Icon(
+             Icon(
               Icons.calendar_today,
               size: 40.0,
-              color: Colors.blue,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
             Text(
               DateFormat('d').format(_portfolioHistoryStore.selectedDate),
@@ -242,7 +242,7 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
         child: Text(_portfolioHistoryStore.selectedCurrency.symbol,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w700,
-                  color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.onPrimary,
                 )),
       );
     });
