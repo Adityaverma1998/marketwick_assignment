@@ -27,22 +27,6 @@ mixin _$PortfolioHistoryStore on _PortfolioHistoryStore, Store {
     });
   }
 
-  late final _$selectedCurrencyAtom =
-      Atom(name: '_PortfolioHistoryStore.selectedCurrency', context: context);
-
-  @override
-  String get selectedCurrency {
-    _$selectedCurrencyAtom.reportRead();
-    return super.selectedCurrency;
-  }
-
-  @override
-  set selectedCurrency(String value) {
-    _$selectedCurrencyAtom.reportWrite(value, super.selectedCurrency, () {
-      super.selectedCurrency = value;
-    });
-  }
-
   late final _$selectedDateAtom =
       Atom(name: '_PortfolioHistoryStore.selectedDate', context: context);
 
@@ -56,6 +40,22 @@ mixin _$PortfolioHistoryStore on _PortfolioHistoryStore, Store {
   set selectedDate(DateTime value) {
     _$selectedDateAtom.reportWrite(value, super.selectedDate, () {
       super.selectedDate = value;
+    });
+  }
+
+  late final _$selectedCurrencyAtom =
+      Atom(name: '_PortfolioHistoryStore.selectedCurrency', context: context);
+
+  @override
+  CurrencyEntity get selectedCurrency {
+    _$selectedCurrencyAtom.reportRead();
+    return super.selectedCurrency;
+  }
+
+  @override
+  set selectedCurrency(CurrencyEntity value) {
+    _$selectedCurrencyAtom.reportWrite(value, super.selectedCurrency, () {
+      super.selectedCurrency = value;
     });
   }
 
@@ -74,7 +74,7 @@ mixin _$PortfolioHistoryStore on _PortfolioHistoryStore, Store {
   }
 
   @override
-  void updateSelectedCurrency(String value) {
+  void updateSelectedCurrency(CurrencyEntity value) {
     final _$actionInfo = _$_PortfolioHistoryStoreActionController.startAction(
         name: '_PortfolioHistoryStore.updateSelectedCurrency');
     try {
@@ -99,8 +99,8 @@ mixin _$PortfolioHistoryStore on _PortfolioHistoryStore, Store {
   String toString() {
     return '''
 selectedBottomNavigation: ${selectedBottomNavigation},
-selectedCurrency: ${selectedCurrency},
-selectedDate: ${selectedDate}
+selectedDate: ${selectedDate},
+selectedCurrency: ${selectedCurrency}
     ''';
   }
 }

@@ -1,13 +1,15 @@
+import 'package:currency_picker/currency_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:intl/intl.dart';
 import 'package:marketwick_assignment/data/store/history/portfolio_history_store.dart';
 import 'package:marketwick_assignment/di/serivce_locators.dart';
+import 'package:marketwick_assignment/domain/entity/currency/currency.dart';
 import 'package:marketwick_assignment/presentation/charts/chart_screen.dart';
 import 'package:marketwick_assignment/presentation/history/history_screen.dart';
 import 'package:marketwick_assignment/presentation/messages/messages_screen.dart';
 import 'package:marketwick_assignment/presentation/quotes/quotes_screen.dart';
 import 'package:marketwick_assignment/presentation/trade/trade_screen.dart';
-import 'package:intl/intl.dart';
 
 class PrimaryLayout extends StatefulWidget {
   const PrimaryLayout({super.key});
@@ -36,7 +38,9 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
         appBar: AppBar(
           title: const Text("Device Insight"),
           actions: [
+            _buildChangeCurrency(),
             _buildSelectDate(),
+
           ],
         ),
 
@@ -103,45 +107,43 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
   Widget _buildSelectDate() {
     return Observer(builder: (context) {
       return IconButton(
-         onPressed: () async {
-           // Show the date picker and get the selected date
-           final DateTime? pickedDate = await showDatePicker(
-             context: context,
-             initialDate: _portfolioHistoryStore.selectedDate,
-             firstDate: DateTime(2000),
-             lastDate: DateTime(2400),
-             builder: (BuildContext context, Widget? child) {
-               return Theme(
-                 data: Theme.of(context).copyWith(
-                   datePickerTheme:  DatePickerThemeData(
-                     backgroundColor:Theme.of(context).colorScheme.onPrimary,
-                     // Change background color here
-                     dayStyle: const TextStyle(color: Colors.black),
-                     // Day text color
-                     headerHelpStyle: const TextStyle(
-                         color: Colors.blue), // Header text color
-                     // Add more styling options as needed
-                   ),
-                   dialogBackgroundColor: Colors.red,
-                   // Background color of the dialog
-                   primaryColor: Colors.green,
-                   // Header color
-                   hintColor: Colors.blue,
-                   // Accent color
-                   colorScheme: ColorScheme.light(primary: Colors.blue),
-                   // Color scheme
-                   buttonTheme: ButtonThemeData(
-                       textTheme: ButtonTextTheme.primary), // Button color
-                 ),
-                 child: child ?? Container(), // Ensure child is not null
-               );
-             },
-           );
-           if (pickedDate != null && pickedDate != _portfolioHistoryStore.selectedDate) {
-             _portfolioHistoryStore.updateSelectedDate(pickedDate); // Update the date in the store
-           }
-
-         },
+        onPressed: () async {
+          final DateTime? pickedDate = await showDatePicker(
+            context: context,
+            initialDate: _portfolioHistoryStore.selectedDate,
+            firstDate: DateTime(2000),
+            lastDate: DateTime(2400),
+            builder: (BuildContext context, Widget? child) {
+              return Theme(
+                data: Theme.of(context).copyWith(
+                  datePickerTheme: DatePickerThemeData(
+                    backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                    // Change background color here
+                    dayStyle: const TextStyle(color: Colors.black),
+                    // Day text color
+                    headerHelpStyle: const TextStyle(color: Colors.blue),
+                  ),
+                  dialogBackgroundColor: Colors.red,
+                  // Background color of the dialog
+                  primaryColor: Colors.green,
+                  // Header color
+                  hintColor: Colors.blue,
+                  // Accent color
+                  colorScheme: const ColorScheme.light(primary: Colors.blue),
+                  // Color scheme
+                  buttonTheme:
+                      const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                ),
+                child: child ?? Container(),
+              );
+            },
+          );
+          if (pickedDate != null &&
+              pickedDate != _portfolioHistoryStore.selectedDate) {
+            _portfolioHistoryStore
+                .updateSelectedDate(pickedDate); // Update the date in the store
+          }
+        },
         icon: Stack(
           alignment: Alignment.center,
           children: [
@@ -151,9 +153,9 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
               color: Colors.blue,
             ),
             Text(
-              DateFormat('d').format(_portfolioHistoryStore.selectedDate), // Format the selected date
+              DateFormat('d').format(_portfolioHistoryStore.selectedDate),
               style: TextStyle(
-                color: Theme.of(context).colorScheme.primary, // Use primary color from theme
+                color: Theme.of(context).colorScheme.primary,
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),
@@ -162,5 +164,64 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
         ),
       );
     });
+  }
+
+  Widget _buildChangeCurrency() {
+    return Observer(
+      builder: (context) {
+        return GestureDetector(
+            onTap: () {
+              // Open the Currency Picker when the button is pressed
+              showCurrencyPicker(
+                context: context,
+                theme: CurrencyPickerThemeData(
+                  flagSize: 25,
+                  titleTextStyle: TextStyle(fontSize: 17),
+                  subtitleTextStyle:
+                      TextStyle(fontSize: 15, color: Theme.of(context).hintColor),
+                  bottomSheetHeight: MediaQuery.of(context).size.height / 2,
+                  inputDecoration: InputDecoration(
+                    labelText: 'Search',
+                    hintText: 'Start typing to search',
+                    prefixIcon: const Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: const Color(0xFF8C98A8).withOpacity(0.2),
+                      ),
+                    ),
+                  ),
+                ),
+                onSelect: (Currency currency) {
+                  // Handle the selected currency
+                  CurrencyEntity  selectedCurrency = CurrencyEntity(
+                    code: currency.code,
+                    name: currency.name,
+                    symbol: currency.symbol,
+                    flag: currency.flag,
+                    number: currency.number,
+                    decimalDigits: currency.decimalDigits,
+                    namePlural: currency.namePlural,
+                    symbolOnLeft: currency.symbolOnLeft,
+                    decimalSeparator: currency.decimalSeparator,
+                    thousandsSeparator: currency.thousandsSeparator,
+                    spaceBetweenAmountAndSymbol: currency.spaceBetweenAmountAndSymbol,
+                  );
+
+
+                  _portfolioHistoryStore.updateSelectedCurrency(selectedCurrency);
+
+                },
+              );
+            },
+            child: Text(_portfolioHistoryStore.selectedCurrency.symbol,
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: Theme.of(context).colorScheme.primary,
+                )),
+
+
+        );
+      }
+    );
   }
 }
