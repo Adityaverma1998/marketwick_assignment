@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:marketwick_assignment/data/store/history/portfolio_history_store.dart';
+import 'package:marketwick_assignment/data/widget/app_drawer/app_drawer.dart';
 import 'package:marketwick_assignment/di/serivce_locators.dart';
 import 'package:marketwick_assignment/domain/entity/currency/currency.dart';
 import 'package:marketwick_assignment/presentation/charts/chart_screen.dart';
@@ -34,45 +35,7 @@ class _PrimaryLayoutState extends State<PrimaryLayout> {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return Scaffold(
-        drawer: Drawer(
-          // Add a ListView to the drawer. This ensures the user can scroll
-          // through the options in the drawer if there isn't enough vertical
-          // space to fit everything.
-          child: ListView(
-            // Important: Remove any padding from the ListView.
-            padding: EdgeInsets.zero,
-            children: [
-              const DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                ),
-                child: Text('Trading app'),
-              ),
-              ListTile(
-                title: Text("Text 11",
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: Theme.of(context).colorScheme.tertiaryFixed,
-                    )),
-                onTap: () {
-                  // Update the state of the app.
-                  // ...
-                },
-              ),
-              ListTile(
-                title: Text("Text 12",
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: Theme.of(context).colorScheme.tertiaryFixed,
-                    )),
-                onTap: () {
-                  // Update the state of the app.
-                  // ...
-                },
-              ),
-            ],
-          ),
-        ),
+        drawer: AppDrawer(),
         appBar: AppBar(
           title:  Text(_getTitleForIndex(_portfolioHistoryStore.selectedBottomNavigation)),
           actions: [
