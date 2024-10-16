@@ -19,13 +19,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
       getIt<PortfolioHistoryStore>();
 
   Map<String, dynamic> exampleData = {
-    "Profit": 57.00,
-    "Credit": 100.0,
-    "Deposit": 500.0,
-    "Withdraw": 0.0,
-    "Swap": 0.0,
-    "Commission": 0.0,
-    "Balance": 1000.0,
+    "Profit": "57.00",
+    "Credit": "100.0",
+    "Deposit": "500.0",
+    "Withdraw": '-1000.0',
+    "Swap": "0.0",
+    "Commission":" 0.0",
+    "Balance": "-1000.0",
     "Transaction": [
       {
         "Symbol": "XAUUSD",

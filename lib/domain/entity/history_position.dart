@@ -1,11 +1,11 @@
 class HistoryPosition {
-  final double profit;
-  final double credit;
-  final double deposit;
-  final double withdraw;
-  final double swap;
-  final double commission;
-  final double balance;
+  final String profit;
+  final String credit;
+  final String deposit;
+  final String withdraw;
+  final String swap;
+  final String commission;
+  final String balance;
   final List<Transaction> transaction;
 
   HistoryPosition( {
@@ -25,13 +25,13 @@ class HistoryPosition {
         .map((transaction) => Transaction.fromJson(transaction))
         .toList();
     return HistoryPosition(
-      profit: json['Profit'] as double,
-      credit: json['Credit'] as double,
-      deposit: json['Deposit'] as double,
-      withdraw: json['Withdraw'] as double,
-      swap: json['Swap'] as double,
-      commission: json['Commission'] as double,
-      balance: json['Balance'] as double,
+      profit: json['Profit'] as String,
+      credit: json['Credit'] as String,
+      deposit: json['Deposit'] as String,
+      withdraw: json['Withdraw'] as String,
+      swap: json['Swap'] as String,
+      commission: json['Commission'] as String,
+      balance: json['Balance'] as String,
       transaction: transactionList,
     );
   }
@@ -53,11 +53,11 @@ class HistoryPosition {
 class Transaction {
   final String symbol;
   final String action;
-  final double lotSize;      // Size of the trade in lots (e.g., 0.38)
-  final DateTime timestamp;  // Date and time of the transaction
-  final double buyPrice;     // Price at which the asset was bought
-  final double sellPrice;    // Price at which the asset was sold
-  final double profit;        // Profit from the trade
+  final double lotSize;
+  final DateTime timestamp;
+  final double buyPrice;
+  final double sellPrice;
+  final double profit;
 
   Transaction({
     required this.symbol,

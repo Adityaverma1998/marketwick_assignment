@@ -60,7 +60,7 @@ class Positions extends StatelessWidget {
     });
   }
 
-  Widget _buildLineText(BuildContext context, String label, double value) {
+  Widget _buildLineText(BuildContext context, String label, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
