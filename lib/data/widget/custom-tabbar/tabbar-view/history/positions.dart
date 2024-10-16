@@ -157,7 +157,7 @@ class Positions extends StatelessWidget {
               Text('${DateTime.parse(timestamp.toString())}',
                   style: Theme.of(context).textTheme.labelMedium?.copyWith(
                         fontWeight: FontWeight.w400,
-                        color: Theme.of(context).colorScheme.tertiaryFixedDim,
+                        color: Theme.of(context).colorScheme.onTertiary,
                       ))
             ],
           ),
